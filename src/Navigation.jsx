@@ -20,7 +20,13 @@ function Navigation(props) {
             <div className="flex items-center gap-2">Cart</div>
           </a>
         </div>
-        <p>Hi, {props.name}</p>
+        {props.name ? (
+          <p>Hi, {props.name}</p>
+        ) : (
+          <>
+            <a href="/signin">Sign In</a> <a href="/signin">Sign Up</a>
+          </>
+        )}
       </div>
     </nav>
   );
