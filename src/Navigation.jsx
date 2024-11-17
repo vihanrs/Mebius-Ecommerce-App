@@ -1,8 +1,6 @@
-import "./Navigation.css";
+import { ShoppingCart } from "lucide-react";
 
-function Navigation() {
-  const name = "Vihan";
-  const count = 0;
+function Navigation(props) {
   return (
     <nav className="flex items-center justify-between p-8 mx-16">
       <div className="flex gap-x-16">
@@ -17,11 +15,12 @@ function Navigation() {
       <div className="flex items-center gap-4">
         <div>
           <a href="/cart" className="flex items-center gap-4 relative">
-            <p className="text-lg">{count}</p>
+            <p className="text-lg">{props.cartCount}</p>
+            <ShoppingCart />
             <div className="flex items-center gap-2">Cart</div>
           </a>
         </div>
-        <p>Hi, {name}</p>
+        <p>Hi, {props.name}</p>
       </div>
     </nav>
   );

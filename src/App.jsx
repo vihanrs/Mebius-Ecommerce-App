@@ -3,9 +3,11 @@ import Hero from "./Hero";
 import Navigation from "./Navigation";
 
 function App() {
+  const name = "Vihan";
+  const cartCount = 2;
   return (
     <div>
-      <Navigation />
+      <Navigation name={name} cartCount={cartCount} />
       <Hero />
     </div>
   );
