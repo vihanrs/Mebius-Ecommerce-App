@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import "./Hero.css";
 
 function Hero() {
@@ -15,12 +16,9 @@ function Hero() {
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius quos
             suscipit est autem quia? Voluptatem?
           </p>
-          <a
-            to="/shop"
-            className="px-4 py-2 text-white font-medium bg-black rounded-md inline-block w-fit"
-          >
-            Shop Now
-          </a>
+          <Button className="w-fit">
+            <a to="/shop">Shop Now</a>
+          </Button>
         </div>
         <div className="relative">
           <img
@@ -30,6 +28,7 @@ function Hero() {
           />
         </div>
       </div>
+      <Button>Buy Now</Button>
     </section>
   );
 }
