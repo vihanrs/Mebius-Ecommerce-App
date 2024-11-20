@@ -3,7 +3,7 @@ import Hero from "./Hero";
 import Navigation from "./Navigation";
 
 function App() {
-  const name = null;
+  const name = "Vihan";
   const cartCount = 2;
   return (
     <div>

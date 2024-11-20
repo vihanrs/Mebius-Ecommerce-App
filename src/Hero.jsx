@@ -1,4 +1,6 @@
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+
 import "./Hero.css";
 
 function Hero() {
@@ -6,9 +8,9 @@ function Hero() {
     <section className="p-8 mx-16">
       <div className="grid grid-cols-2 rounded-lg min-h-[60vh] bg-[#f4f8f9]">
         <div className="flex flex-col justify-center p-16 gap-4">
-          <span className="inline-block rounded-full px-2 py-1 text-xs w-fit bg-yellow-400">
+          <Badge variant="outline" className="w-fit bg-yellow-400 py-1 text-xs">
             WEEKLY DISCOUNT
-          </span>
+          </Badge>
           <h1 className="text-6xl font-semibold">
             Premium Product Online Shop
           </h1>
@@ -17,7 +19,7 @@ function Hero() {
             suscipit est autem quia? Voluptatem?
           </p>
           <Button className="w-fit">
-            <a to="/shop">Shop Now</a>
+            <a href="/shop">Shop Now</a>
           </Button>
         </div>
         <div className="relative">
@@ -28,7 +30,6 @@ function Hero() {
           />
         </div>
       </div>
-      <Button>Buy Now</Button>
     </section>
   );
 }
