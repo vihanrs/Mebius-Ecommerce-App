@@ -18,7 +18,7 @@ function Hero() {
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius quos
             suscipit est autem quia? Voluptatem?
           </p>
-          <Button className="w-fit">
+          <Button className="w-fit" asChild>
             <a href="/shop">Shop Now</a>
           </Button>
         </div>
