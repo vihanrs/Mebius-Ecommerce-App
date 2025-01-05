@@ -1,7 +1,7 @@
 import { Separator } from "@/components/ui/separator";
 import Tab from "./Tab";
 import ProductCards from "./ProductCards";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Select,
   SelectContent,
@@ -9,95 +9,49 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Skeleton } from "@/components/ui/skeleton";
+import { getProducts, useGetCategoriesQuery } from "./lib/api";
 
 function Products() {
-  const products = [
-    {
-      categoryId: "1",
-      image: "/assets/products/airpods-max.png",
-      _id: "1",
-      name: "AirPods Max",
-      price: "549.00",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, sequi?",
-    },
-    {
-      categoryId: "3",
-      image: "/assets/products/echo-dot.png",
-      _id: "2",
-      name: "Echo Dot",
-      price: "99.00",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, sequi?",
-    },
-    {
-      categoryId: "2",
-      image: "/assets/products/pixel-buds.png",
-      _id: "3",
-      name: "Galaxy Pixel Buds",
-      price: "99.00",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, sequi?",
-    },
-    {
-      categoryId: "1",
-      image: "/assets/products/quietcomfort.png",
-      _id: "4",
-      name: "Bose QuiteComfort",
-      price: "249.00",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, sequi?",
-    },
-    {
-      categoryId: "3",
-      image: "/assets/products/soundlink.png",
-      _id: "5",
-      name: "Bose SoundLink",
-      price: "119.00",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, sequi?",
-    },
-    {
-      categoryId: "5",
-      image: "/assets/products/apple-watch.png",
-      _id: "6",
-      name: "Apple Watch 9",
-      price: "699.00",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, sequi?",
-    },
-    {
-      categoryId: "4",
-      image: "/assets/products/iphone-15.png",
-      _id: "7",
-      name: "Apple Iphone 15",
-      price: "1299.00",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, sequi?",
-    },
-    {
-      categoryId: "4",
-      image: "/assets/products/pixel-8.png",
-      _id: "8",
-      name: "Galaxy Pixel 8",
-      price: "549.00",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, sequi?",
-    },
-  ];
+  // USE RTK QUERIES
+  const {
+    data: categories,
+    isLoading: isCategoriesLoading,
+    isError: isCategoriesError,
+    error: categoryError,
+  } = useGetCategoriesQuery();
 
-  const categories = [
-    { _id: "ALL", name: "All" },
-    { _id: "1", name: "Headphones" },
-    { _id: "2", name: "Earbuds" },
-    { _id: "3", name: "Speakers" },
-    { _id: "4", name: "Mobile Phones" },
-    { _id: "5", name: "Smart Watches" },
-  ];
+  // const categories = [
+  //   { _id: "ALL", name: "All" },
+  //   { _id: "1", name: "Headphones" },
+  //   { _id: "2", name: "Earbuds" },
+  //   { _id: "3", name: "Speakers" },
+  //   { _id: "4", name: "Mobile Phones" },
+  //   { _id: "5", name: "Smart Watches" },
+  // ];
+
+  // MANAGE ASYNC STATE MANUALLY WITHOUT RTK QUERIES
+  const [products, setProducts] = useState([]);
+  const [isProductLoading, setIsLoading] = useState(true);
+  const [productError, setProductError] = useState({
+    isError: false,
+    message: "",
+  });
 
   const [selectedCategoryId, setSelectedCategoryId] = useState("ALL");
 
   const [sortOrder, setSortOrder] = useState(null);
+
+  useEffect(() => {
+    getProducts()
+      .then((data) => {
+        setProducts(data);
+      })
+      .catch((error) => {
+        setProductError({ isError: true, message: error.message });
+      })
+      .finally(() => setIsLoading(false));
+  }, []);
 
   // get filtered and sorted products by using filter and sort methods
   const sortedAndFilteredProducts = products
@@ -121,20 +75,34 @@ function Products() {
   };
 
   return (
-    <section className="px-8 py-8">
+    <section className="p-8 mx-16">
       <h2 className="text-4xl font-bold">Our Top Products</h2>
       <Separator className="mt-2" />
       <div className="flex justify-between mt-4">
         <div className="flex items-center gap-4">
-          {categories.map((category) => (
-            <Tab
-              key={category._id}
-              _id={category._id}
-              selectedCategoryId={selectedCategoryId}
-              name={category.name}
-              onTabClick={handleTabClick}
-            />
-          ))}
+          {isCategoriesLoading ? (
+            <div className="flex gap-3">
+              <Skeleton className="h-4 w-[90px]" />
+              <Skeleton className="h-4 w-[90px]" />
+              <Skeleton className="h-4 w-[90px]" />
+              <Skeleton className="h-4 w-[90px]" />
+              <Skeleton className="h-4 w-[90px]" />
+            </div>
+          ) : isCategoriesError ? (
+            <div className="mt-4">
+              <p className="text-red-500">{categoryError.message}</p>
+            </div>
+          ) : (
+            [{ _id: "ALL", name: "All" }, ...categories].map((category) => (
+              <Tab
+                key={category._id}
+                _id={category._id}
+                selectedCategoryId={selectedCategoryId}
+                name={category.name}
+                onTabClick={handleTabClick}
+              />
+            ))
+          )}
         </div>
         <div>
           <Select onValueChange={handleSortSelector}>
@@ -149,7 +117,45 @@ function Products() {
         </div>
       </div>
 
-      <ProductCards products={sortedAndFilteredProducts} />
+      {isProductLoading ? (
+        <div className="grid grid-cols-4 gap-4 mt-4">
+          <div className="flex flex-col space-y-3">
+            <Skeleton className="h-60 rounded-xl" />
+            <div className="space-y-2">
+              <Skeleton className="h-4" />
+              <Skeleton className="h-4 w-[250px]" />
+            </div>
+          </div>
+          <div className="flex flex-col space-y-3">
+            <Skeleton className="h-60 rounded-xl" />
+            <div className="space-y-2">
+              <Skeleton className="h-4" />
+              <Skeleton className="h-4 w-[250px]" />
+            </div>
+          </div>
+          <div className="flex flex-col space-y-3">
+            <Skeleton className="h-60 rounded-xl" />
+            <div className="space-y-2">
+              <Skeleton className="h-4" />
+              <Skeleton className="h-4 w-[250px]" />
+            </div>
+          </div>
+          <div className="flex flex-col space-y-3">
+            <Skeleton className="h-60 rounded-xl" />
+            <div className="space-y-2">
+              <Skeleton className="h-4" />
+              <Skeleton className="h-4 w-[250px]" />
+            </div>
+          </div>
+        </div>
+      ) : productError.isError ? (
+        <div className="mt-4">
+          <p className="text-red-500">{productError.message}</p>
+        </div>
+      ) : (
+        <ProductCards products={sortedAndFilteredProducts} />
+        // handleAddToCart={handleAddToCart}
+      )}
     </section>
   );
 }

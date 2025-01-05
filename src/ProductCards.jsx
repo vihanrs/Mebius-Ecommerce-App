@@ -7,11 +7,13 @@ function ProductCards({ products }) {
         return (
           <ProductCard
             key={product._id}
+            _id={product._id}
             name={product.name}
             price={product.price}
             image={product.image}
             description={product.description}
           />
+          // handleAddToCart={handleAddToCart}
         );
       })}
     </div>

@@ -1,8 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
-import "./Hero.css";
-
 function Hero() {
   return (
     <section className="p-8 mx-16">

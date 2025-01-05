@@ -1,6 +1,6 @@
 import { ShoppingCart } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Link } from "react-router";
 
 function Navigation(props) {
   return (
@@ -32,12 +32,12 @@ function Navigation(props) {
           </>
         ) : (
           <>
-            <Button variant="ghost" className="w-fit">
-              <a href="/signin">Sign In</a>
-            </Button>
-            <Button variant="ghost" className="w-fit">
-              <a href="/signup">Sign Up</a>
-            </Button>
+            <Link to="/sign-in" className="font-medium text-primary">
+              Sign In
+            </Link>
+            <Link to="/sign-up" className="font-medium text-primary">
+              Sign Up
+            </Link>
           </>
         )}
       </div>
