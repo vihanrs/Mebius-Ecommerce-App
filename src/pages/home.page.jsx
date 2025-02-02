@@ -23,6 +23,7 @@ const HomePage = () => {
   // };
 
   const cart = useSelector((state) => state.cart.value);
+  const savedItems = useSelector((state) => state.savedItems.value);
 
   const getCartQuantity = () => {
     let count = 0;
@@ -34,10 +35,13 @@ const HomePage = () => {
 
   return (
     <div>
-      <Navigation name={name} cartCount={getCartQuantity()} />
+      <Navigation
+        name={name}
+        cartCount={getCartQuantity()}
+        savedItemsCount={savedItems.length}
+      />
       <Hero />
       <Products />
-      {/* handleAddToCart={handleAddToCart} */}
     </div>
   );
 };

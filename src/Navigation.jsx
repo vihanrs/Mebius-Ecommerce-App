@@ -1,4 +1,4 @@
-import { ShoppingCart } from "lucide-react";
+import { Heart, ShoppingCart } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Link } from "react-router";
 
@@ -14,12 +14,19 @@ function Navigation(props) {
           <a href="/shop">Shop</a>
         </div>
       </div>
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-5">
         <div>
-          <a href="/cart" className="flex items-center gap-4 relative">
+          <a href="/cart" className="flex items-center gap-3 relative">
+            <p className="text-lg">{props.savedItemsCount}</p>
+            <Heart />
+            <div>Saved</div>
+          </a>
+        </div>
+        <div>
+          <a href="/cart" className="flex items-center gap-3 relative">
             <p className="text-lg">{props.cartCount}</p>
             <ShoppingCart />
-            <div className="flex items-center gap-2">Cart</div>
+            <div>Cart</div>
           </a>
         </div>
         {props.name ? (
