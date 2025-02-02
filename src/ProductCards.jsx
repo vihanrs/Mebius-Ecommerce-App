@@ -13,7 +13,6 @@ function ProductCards({ products }) {
             image={product.image}
             description={product.description}
           />
-          // handleAddToCart={handleAddToCart}
         );
       })}
     </div>

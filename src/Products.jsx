@@ -21,15 +21,6 @@ function Products() {
     error: categoryError,
   } = useGetCategoriesQuery();
 
-  // const categories = [
-  //   { _id: "ALL", name: "All" },
-  //   { _id: "1", name: "Headphones" },
-  //   { _id: "2", name: "Earbuds" },
-  //   { _id: "3", name: "Speakers" },
-  //   { _id: "4", name: "Mobile Phones" },
-  //   { _id: "5", name: "Smart Watches" },
-  // ];
-
   // MANAGE ASYNC STATE MANUALLY WITHOUT RTK QUERIES
   const [products, setProducts] = useState([]);
   const [isProductLoading, setIsLoading] = useState(true);
@@ -154,7 +145,6 @@ function Products() {
         </div>
       ) : (
         <ProductCards products={sortedAndFilteredProducts} />
-        // handleAddToCart={handleAddToCart}
       )}
     </section>
   );
