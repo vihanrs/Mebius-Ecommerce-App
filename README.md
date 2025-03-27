@@ -100,6 +100,8 @@ const Navigation = () => {
 **Solution:**
 ✅ Implemented Redux Toolkit with persistent storage:
 
+![Capture](https://github.com/user-attachments/assets/e2d30c26-fa1b-4c96-9ed0-3fb40a12e253)
+
 ```javascript
 // cartSlice.js
 const cartSlice = createSlice({
