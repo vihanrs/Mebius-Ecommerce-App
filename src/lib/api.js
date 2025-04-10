@@ -17,52 +17,53 @@ export const Api = createApi({
 
   endpoints: (builder) => ({
     getProducts: builder.query({
-      query: () => `products`,
+      query: () => `/api/v1/products`,
     }),
     getFeaturedProducts: builder.query({
-      query: () => `products/featured`,
+      query: () => `/api/v1/products/featured`,
     }),
     getCategories: builder.query({
-      query: () => `categories`,
+      query: () => `/api/v1/categories`,
     }),
     getOrder: builder.query({
-      query: (id) => `orders/${id}`,
+      query: (id) => `/api/v1/orders/${id}`,
     }),
     getSingleProduct: builder.query({
-      query: (id) => `/products/${id}`,
+      query: (id) => `/api/v1/products/${id}`,
     }),
     createOrder: builder.mutation({
       query: (body) => ({
-        url: `orders`,
+        url: `/api/v1/orders`,
         method: "POST",
         body,
       }),
     }),
     createProduct: builder.mutation({
       query: (body) => ({
-        url: `products`,
+        url: `/api/v1/products`,
         method: "POST",
         body,
       }),
     }),
     getOrdersByUser: builder.query({
-      query: () => `orders/user`,
+      query: () => `/api/v1/orders/user`,
     }),
     validatePromoCode: builder.mutation({
       query: (code) => ({
-        url: "/promocodes/validate",
+        url: "/api/v1/promocodes/validate",
         method: "POST",
         body: { code },
       }),
     }),
     createCheckoutSession: builder.mutation({
       query: () => ({
-        url: `payments/create-checkout-session`,
+        url: `/api/v1/payments/create-checkout-session`,
         method: "POST",
       }),
     }),
     getCheckoutSessionStatus: builder.query({
-      query: (sessionId) => `payments/session-status?session_id=${sessionId}`,
+      query: (sessionId) =>
+        `/api/v1/payments/session-status?session_id=${sessionId}`,
     }),
   }),
 });
