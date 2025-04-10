@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/select";
 import { useGetCategoriesQuery, useCreateProductMutation } from "@/lib/api";
 import { toast } from "sonner";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const formSchema = z.object({
   name: z.string().min(3, "Product name must be at least 3 characters"),
@@ -32,6 +33,7 @@ const formSchema = z.object({
     .number()
     .int()
     .nonnegative("Stock must be a non-negative number"),
+  isFeatured: z.boolean(),
 });
 
 function AdminProductCreatePage() {
@@ -44,6 +46,7 @@ function AdminProductCreatePage() {
       image: "",
       categoryId: "",
       stockQuantity: 0,
+      isFeatured: false,
     },
   });
 
@@ -61,6 +64,7 @@ function AdminProductCreatePage() {
         image: values.image,
         categoryId: values.categoryId,
         stockQuantity: values.stockQuantity,
+        isFeatured: values.isFeatured,
       }).unwrap();
 
       toast.success("Product created successfully");
@@ -194,6 +198,25 @@ function AdminProductCreatePage() {
                       ))}
                     </SelectContent>
                   </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="isFeatured"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                  <div className="space-y-1 leading-none">
+                    <FormLabel>Featured</FormLabel>
+                  </div>
                   <FormMessage />
                 </FormItem>
               )}

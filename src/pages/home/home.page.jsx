@@ -1,5 +1,5 @@
 import Hero from "@/pages/home/components/Hero";
-import Products from "@/pages/home/components/Products";
+import FeaturedProducts from "@/pages/home/components/FeaturedProducts";
 import PromoBanner from "./components/PromoBanner";
 
 const HomePage = () => {
@@ -7,7 +7,7 @@ const HomePage = () => {
     <main>
       <PromoBanner />
       <Hero />
-      <Products>Featured Products</Products>
+      <FeaturedProducts>Featured Products</FeaturedProducts>
     </main>
   );
 };

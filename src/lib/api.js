@@ -4,7 +4,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const Api = createApi({
   reducerPath: "Api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://fed-storefront-backend-vihan.onrender.com/api/v1",
+    baseUrl: import.meta.env.VITE_BASE_URL,
     prepareHeaders: async (headers, { getState }) => {
       const token = await window.Clerk?.session?.getToken();
       if (token) {
@@ -18,6 +18,9 @@ export const Api = createApi({
   endpoints: (builder) => ({
     getProducts: builder.query({
       query: () => `products`,
+    }),
+    getFeaturedProducts: builder.query({
+      query: () => `products/featured`,
     }),
     getCategories: builder.query({
       query: () => `categories`,
@@ -52,6 +55,15 @@ export const Api = createApi({
         body: { code },
       }),
     }),
+    createCheckoutSession: builder.mutation({
+      query: () => ({
+        url: `payments/create-checkout-session`,
+        method: "POST",
+      }),
+    }),
+    getCheckoutSessionStatus: builder.query({
+      query: (sessionId) => `payments/session-status?session_id=${sessionId}`,
+    }),
   }),
 });
 
@@ -59,6 +71,7 @@ export const Api = createApi({
 // auto-generated based on the defined endpoints
 export const {
   useGetProductsQuery,
+  useGetFeaturedProductsQuery,
   useGetCategoriesQuery,
   useGetSingleProductQuery,
   useCreateOrderMutation,
@@ -66,4 +79,6 @@ export const {
   useGetOrdersByUserQuery,
   useCreateProductMutation,
   useValidatePromoCodeMutation,
+  useCreateCheckoutSessionMutation,
+  useGetCheckoutSessionStatusQuery,
 } = Api;

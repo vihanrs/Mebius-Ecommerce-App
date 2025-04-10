@@ -22,8 +22,8 @@ const formSchema = z.object({
   zip_code: z.string().min(1, "Zip code is required"),
   phone: z.string().refine(
     (value) => {
-      // This regex checks for a basic international phone number format
-      return /^\+?[1-9]\d{1,14}$/.test(value);
+      // This regex checks for a basic international phone number format and local numbers
+      return /^(\+94\d{9}|0\d{9})$/.test(value);
     },
     {
       message: "Invalid phone number format",
@@ -34,6 +34,14 @@ const formSchema = z.object({
 const ShippingAddressForm = ({ cart, promoCode }) => {
   const form = useForm({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      line_1: "",
+      line_2: "",
+      city: "",
+      state: "",
+      zip_code: "",
+      phone: "",
+    },
   });
 
   const [createOrder] = useCreateOrderMutation();
@@ -55,7 +63,8 @@ const ShippingAddressForm = ({ cart, promoCode }) => {
       }).unwrap();
 
       toast.success("Checkout successful");
-      navigate("/shop/payment");
+      console.log("Order Response:", response);
+      navigate(`/shop/payment?orderId=${response.orderId}`);
     } catch (error) {
       if (error.status === 400) {
         // Validation error
