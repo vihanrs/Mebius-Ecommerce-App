@@ -25,6 +25,7 @@ import ShopPage from "./pages/shop.page";
 import ProductDetails from "@/pages/ProductDetails";
 import MyOrdersPage from "./pages/my.orders.page";
 import SavedItemsPage from "./pages/saved.items.page";
+import OrderDetails from "./pages/order.details";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
@@ -50,6 +51,7 @@ createRoot(document.getElementById("root")).render(
                 <Route path="/shop/checkout" element={<CheckoutPage />} />
                 <Route path="/shop/payment" element={<PaymentPage />} />
                 <Route path="/shop/complete" element={<CompletePage />} />
+                <Route path="/shop/order-details" element={<OrderDetails />} />
                 <Route path="/account" element={<AccountPage />} />
                 <Route path="/my-orders" element={<MyOrdersPage />} />
 

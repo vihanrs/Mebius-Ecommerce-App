@@ -28,7 +28,7 @@ function MyOrdersPage() {
   };
 
   const operOrder = (orderId) => {
-    navigate(`/shop/complete?orderId=${orderId}`, {
+    navigate(`/shop/order-details?orderId=${orderId}`, {
       state: { fromMyOrders: true },
     });
   };
