@@ -6,9 +6,9 @@ A modern React-based e-commerce frontend application with features like shopping
 
 Take a look the live demo here 👉 https://t-shirt-designer-webapp.vercel.app/
 
-![project-zaptech](https://github.com/user-attachments/assets/d7c97e74-fe60-46bb-b5f3-c5dc4ff91e9f)
-
 Backend Repo : https://github.com/vihanrs/ZapTech-Store-BE
+
+![project-zaptech](https://github.com/user-attachments/assets/d7c97e74-fe60-46bb-b5f3-c5dc4ff91e9f)
 
 ## 🌐 Features
 
