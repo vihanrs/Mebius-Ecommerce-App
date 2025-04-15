@@ -20,10 +20,13 @@ export const Api = createApi({
       query: () => `/api/v1/products`,
     }),
     getFeaturedProducts: builder.query({
-      query: () => `/api/v1/products/featured`,
+      query: () => `/api/v1/products?&tag=featured&status=active`,
     }),
     getCategories: builder.query({
       query: () => `/api/v1/categories`,
+    }),
+    getPromoCodes: builder.query({
+      query: () => `/api/v1/promocodes`,
     }),
     getOrder: builder.query({
       query: (id) => `/api/v1/orders/${id}`,
@@ -43,6 +46,46 @@ export const Api = createApi({
         url: `/api/v1/products`,
         method: "POST",
         body,
+      }),
+    }),
+    createCategory: builder.mutation({
+      query: (body) => ({
+        url: `/api/v1/categories`,
+        method: "POST",
+        body,
+      }),
+    }),
+    createPromocode: builder.mutation({
+      query: (body) => ({
+        url: `/api/v1/promocodes`,
+        method: "POST",
+        body,
+      }),
+    }),
+    updateCategory: builder.mutation({
+      query: ({ id, ...body }) => ({
+        url: `/api/v1/categories/${id}`,
+        method: "PUT",
+        body,
+      }),
+    }),
+    updateCategoryStatus: builder.mutation({
+      query: ({ id, isActive }) => ({
+        url: `/api/v1/categories/${id}/status?status=${isActive}`,
+        method: "PUT",
+      }),
+    }),
+    updatePromocode: builder.mutation({
+      query: ({ id, ...body }) => ({
+        url: `/api/v1/promocodes/${id}`,
+        method: "PUT",
+        body,
+      }),
+    }),
+    updatePromocodeStatus: builder.mutation({
+      query: ({ id, isActive }) => ({
+        url: `/api/v1/promocodes/${id}/status?status=${isActive}`,
+        method: "PUT",
       }),
     }),
     getOrdersByUser: builder.query({
@@ -82,4 +125,11 @@ export const {
   useValidatePromoCodeMutation,
   useCreateCheckoutSessionMutation,
   useGetCheckoutSessionStatusQuery,
+  useCreateCategoryMutation,
+  useUpdateCategoryMutation,
+  useUpdateCategoryStatusMutation,
+  useGetPromoCodesQuery,
+  useCreatePromocodeMutation,
+  useUpdatePromocodeMutation,
+  useUpdatePromocodeStatusMutation,
 } = Api;

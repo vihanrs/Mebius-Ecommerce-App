@@ -26,6 +26,9 @@ import ProductDetails from "@/pages/ProductDetails";
 import MyOrdersPage from "./pages/my.orders.page";
 import SavedItemsPage from "./pages/saved.items.page";
 import OrderDetails from "./pages/order.details";
+import Dashboard from "./pages/admin/dashboard.page";
+import CategoryManagement from "./pages/admin/manage.categories.page";
+import PromocodeManagement from "./pages/admin/manage.promocodes.page";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
@@ -60,6 +63,15 @@ createRoot(document.getElementById("root")).render(
                   <Route
                     path="/admin/products/new"
                     element={<AdminProductCreatePage />}
+                  />
+                  <Route path="/admin/dashboard" element={<Dashboard />} />
+                  <Route
+                    path="/admin/categories"
+                    element={<CategoryManagement />}
+                  />
+                  <Route
+                    path="/admin/promocodes"
+                    element={<PromocodeManagement />}
                   />
                 </Route>
               </Route>
