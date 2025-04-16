@@ -20,7 +20,10 @@ export const Api = createApi({
       query: () => `/api/v1/products`,
     }),
     getFeaturedProducts: builder.query({
-      query: () => `/api/v1/products?&tag=featured&status=active`,
+      query: () => `/api/v1/products?tag=featured&status=active`,
+    }),
+    getActiveCategories: builder.query({
+      query: () => `/api/v1/categories?status=active`,
     }),
     getCategories: builder.query({
       query: () => `/api/v1/categories`,
@@ -65,6 +68,19 @@ export const Api = createApi({
     updateCategory: builder.mutation({
       query: ({ id, ...body }) => ({
         url: `/api/v1/categories/${id}`,
+        method: "PUT",
+        body,
+      }),
+    }),
+    updateProductStatus: builder.mutation({
+      query: ({ id, isActive }) => ({
+        url: `/api/v1/products/${id}/status?status=${isActive}`,
+        method: "PUT",
+      }),
+    }),
+    updateProduct: builder.mutation({
+      query: ({ id, ...body }) => ({
+        url: `/api/v1/products/${id}`,
         method: "PUT",
         body,
       }),
@@ -116,6 +132,7 @@ export const Api = createApi({
 export const {
   useGetProductsQuery,
   useGetFeaturedProductsQuery,
+  useGetActiveCategoriesQuery,
   useGetCategoriesQuery,
   useGetSingleProductQuery,
   useCreateOrderMutation,
@@ -132,4 +149,6 @@ export const {
   useCreatePromocodeMutation,
   useUpdatePromocodeMutation,
   useUpdatePromocodeStatusMutation,
+  useUpdateProductMutation,
+  useUpdateProductStatusMutation,
 } = Api;
