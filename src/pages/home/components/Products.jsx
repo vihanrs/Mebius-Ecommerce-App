@@ -1,5 +1,3 @@
-"use client";
-
 import { Separator } from "@/components/ui/separator";
 import Tab from "./Tab";
 import ProductCards from "./ProductCards";
@@ -35,7 +33,7 @@ function Products({ children }) {
     ? products
         .filter((product) => {
           if (selectedCategoryId === "ALL") return product;
-          return product.categoryId === selectedCategoryId;
+          return product.categoryId._id === selectedCategoryId;
         })
         .sort((a, b) => {
           if (sortOrder === "ascending")
@@ -80,7 +78,16 @@ function Products({ children }) {
               <Skeleton className="h-4 w-[70px] md:w-[90px]" />
             </div>
           ) : (
-            [{ _id: "ALL", name: "All" }, ...categories].map((category) => (
+            [
+              { _id: "ALL", name: "All" },
+              ...categories
+                .slice() // avoid mutating original array
+                .sort(
+                  (a, b) =>
+                    new Date(a.createdAt).getTime() -
+                    new Date(b.createdAt).getTime()
+                ),
+            ].map((category) => (
               <Tab
                 key={category._id}
                 _id={category._id}
